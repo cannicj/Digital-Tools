@@ -45,6 +45,9 @@ def get_currency_pair_data(currency_pair):
     try:
         start_date = datetime.datetime(2000, 1, 1)
         currency_data = DataReader(currency_code, 'fred', start_date)
+        #Problem: USD not always base currency. Check if it is, if it is not, take the inverse
+        if currency_code[:2] != 'US':
+            currency_data = 1/currency_data
         return currency_data
     except Exception as e:
         print("Error:", e)

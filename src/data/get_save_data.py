@@ -2,7 +2,7 @@ from download_rawdata_functions import get_currency_pair_data
 import pandas as pd
 import os
 
-currency_pairs = ["USDEUR","USDJPY","USDGBP","USDCHF","USDAUD","USDCAD","USDHKD","USDNZD","USDSEK","USDSGD","USDNOK","USDKRW","USDTRY","USDMXN","USDRUB"]
+currency_pairs = ["USDEUR","USDJPY","USDGBP","USDCHF","USDAUD","USDCAD","USDNZD","USDSEK","USDSGD","USDNOK"]
 # Create an empty DataFrame to store the combined data
 combined_currency_data = pd.DataFrame()
 
@@ -23,4 +23,4 @@ if not os.path.exists(output_directory):
 output_file = os.path.join(output_directory, 'combined_currency_data.csv')
 
 # Save the combined data to a CSV file in the specified directory
-combined_currency_data.to_csv(output_file, index=True)
+combined_currency_data.to_csv(output_file, index=True, mode = 'w')
