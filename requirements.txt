@@ -1,6 +1,7 @@
 pandas_datareader==0.10.0
 pandas==2.1.2
 numpy==1.25
+sklearn
 
 
 
