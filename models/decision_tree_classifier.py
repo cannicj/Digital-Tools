@@ -13,11 +13,29 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=1,train_size=0.75,max_depth=10):
+     """
+    Applies a Decision Tree Classifier to financial data for binary outcome prediction.
 
+    Parameters:
+    - DataFrame: The main dataset including currency and optionally S&P 500 data.
+    - currencies (list of str, optional): List of currency pair columns from the dataset. Includes all if None.
+    - train_size (float): Proportion of the dataset used for training the model. Default is 0.75.
+    - include_sp500 (bool): Flag to decide if S&P 500 data should be included. Default is False.
+    - lag (int): Number of periods to lag the S&P 500 data. Default is 1.
+    - max_depth (int): Maximum depth of the decision tree. Default is 10.
+
+    Returns:
+    - tuple: Contains DataFrame of model accuracies and DataFrame or plot of model's financial performance.
+    """
+    
     # Selecting columns based on currencies if provided
     if currencies is not None:
-        columns_to_include = [currency for currency in currencies if currency in dataframe.columns]
-        dataframe = dataframe[['DATE'] + columns_to_include + ['SP500']]
+        unavailable_currencies = [currency for currency in currencies if currency not in dataframe.columns]
+        if unavailable_currencies:
+            available_currencies = ', '.join([col for col in dataframe.columns if col not in ['DATE', 'SP500']])
+            unavailable_currencies_str = ', '.join(unavailable_currencies)
+            print(f"Sorry, {unavailable_currencies_str} is not an available currency pair. Please choose currency pairs from: {available_currencies}")
+            return None
     
     # Setting up response and regressor variables
     y1 = dataframe.iloc[lag:, -1]  # Assuming the last column is the response variable
