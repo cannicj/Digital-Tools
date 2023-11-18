@@ -13,11 +13,31 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 def support_vector_machine(dataframe, currencies=None, include_sp500=True,lag=1,train_size=0.75):
+    """
+    Trains a Support Vector Classifier (SVC) on financial data and evaluates its performance.
 
+    This function processes financial data, potentially including S&P 500 information, and applies a Support Vector Classifier to predict binary outcomes. It also calculates the model's accuracy and plots the cumulative returns for comparison.
+
+    Parameters:
+    - dataframe (pd.DataFrame): The dataset containing the financial data. It should have a 'DATE' column, currency data columns, and optionally an 'SP500' column.
+    - currencies (list of str, optional): A list of currency columns to include in the analysis. If None, all available currencies in the dataframe will be used.
+    - include_sp500 (bool): Determines whether to include the S&P 500 data in the analysis. Defaults to True.
+    - lag (int): The number of periods by which to lag the response variable for prediction. Defaults to 1.
+    - train_size (float): The proportion of the dataset to use for training the model. The rest will be used for testing. Defaults to 0.75.
+
+    Returns:
+    - tuple: A tuple containing a DataFrame of model accuracies and another DataFrame with the cumulative returns for both the 'Long' strategy and the SVC model. It also generates a plot comparing these returns.
+
+    The function prints the accuracy of the model and displays a plot of the cumulative returns. The accuracies DataFrame includes 'in sample' and 'out of sample' accuracy of the SVC model.
+    """
     # Selecting columns based on currencies if provided
     if currencies is not None:
-        columns_to_include = [currency for currency in currencies if currency in dataframe.columns]
-        dataframe = dataframe[['DATE'] + columns_to_include + ['SP500']]
+        unavailable_currencies = [currency for currency in currencies if currency not in dataframe.columns]
+        if unavailable_currencies:
+            available_currencies = ', '.join([col for col in dataframe.columns if col not in ['DATE', 'SP500']])
+            unavailable_currencies_str = ', '.join(unavailable_currencies)
+            print(f"Sorry, {unavailable_currencies_str} is not an available currency pair. Please choose currency pairs from: {available_currencies}")
+            return None
 
     # Setting up response and regressor variables
     y1 = dataframe.iloc[lag:, -1]  # Assuming the last column is the response variable
