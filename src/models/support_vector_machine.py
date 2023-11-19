@@ -88,7 +88,7 @@ def support_vector_machine(dataframe, currencies=None, include_sp500=True,lag=1,
 
     print(accuracies)
     
-    test_perform = pd.DataFrame({"Long": y_long, "SVC": y_svc})
+    test_perform = pd.DataFrame({"SP500": y_long, "SVC": y_svc})
 
     cumreturns = pd.concat([y_test_dates, test_perform], axis=1)
 

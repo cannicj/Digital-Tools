@@ -16,4 +16,6 @@ def plot_results(dataframe, include_sp500):
     plt.xlabel('Date')
     plt.ylabel('Cumulative Return')
     plt.savefig('classifier.svg', dpi=1000)
+    # Add grid
+    plt.grid(True)
     plt.show()

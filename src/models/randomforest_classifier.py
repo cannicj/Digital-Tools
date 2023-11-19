@@ -94,7 +94,7 @@ def randomforest_classifier(dataframe, currencies=None, include_sp500=True, lag=
     print(accuracies)
 
    
-    test_perform = pd.DataFrame({"Long": y_long, "RFC": y_rfc})
+    test_perform = pd.DataFrame({"SP500": y_long, "RFC": y_rfc})
     
     cumreturns = pd.concat([y_test_dates, test_perform], axis=1)
 

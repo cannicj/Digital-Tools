@@ -90,7 +90,7 @@ def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=
 
     print(accuracies)
 
-    test_perform = pd.DataFrame({"Long": y_long, "DTC": y_dtc})
+    test_perform = pd.DataFrame({"SP500": y_long, "DTC": y_dtc})
 
     cumreturns = pd.concat([y_test_dates, test_perform], axis=1)
     
