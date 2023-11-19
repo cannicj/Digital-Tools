@@ -2,14 +2,13 @@
 # coding: utf-8
 
 import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
+import random
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-import matplotlib.dates as mdates
 
-def randomforest_classifier(dataframe, currencies=None, include_sp500=True, lag=1, train_size=0.75, trees=30, max_depth=10, leafes=10):
+def randomforest_classifier(dataframe, currencies=None, include_sp500=True, lag=1, train_size=0.75, random_seed=False, long_only=False, trees=30, max_depth=10, leaves=10):
     """
    Trains a Randomforest Classifier on financial data to predict binary outcomes and evaluates its performance.
 
@@ -23,7 +22,7 @@ def randomforest_classifier(dataframe, currencies=None, include_sp500=True, lag=
    - train_size (float): The proportion of the dataset to use for training the model. The rest will be used for testing. Defaults to 0.75.
    - trees (int): The number of trees in the forest. More trees can lead to a more robust and stable model, but it also comes with increased computational cost. Default is 30.
    - max_depth (int): The maximum depth of one decision tree in the forest. Helps to control the complexity of the model. Defaults to 10.
-   - leafes (int): The maximum number of terminal nodes / leaves in one tree. Helps to control the complexity of the model. Defaults to 10.
+   - leaves (int): The maximum number of terminal nodes / leaves in one tree. Helps to control the complexity of the model. Defaults to 10.
 
    Returns:
    - tuple: A tuple containing a DataFrame of model accuracies and another DataFrame with the cumulative returns for both the 'Long' strategy and the Decision Tree Classifier model. It also generates a plot comparing these returns.
@@ -43,6 +42,11 @@ def randomforest_classifier(dataframe, currencies=None, include_sp500=True, lag=
                 f"Sorry, {unavailable_currencies_str} is not an available currency pair. Please choose currency pairs from: {available_currencies}")
             return None
 
+#Generates a random seed if random_seed is set to True
+    seed=42
+    if random_seed==True:
+        seed = random.randint(0, 4294967295)
+
     # Setting up response and regressor variables
     y1 = dataframe.iloc[lag:, -1]  # Assuming the last column is the response variable
     y_dates = dataframe.iloc[lag:, 0]
@@ -58,20 +62,21 @@ def randomforest_classifier(dataframe, currencies=None, include_sp500=True, lag=
     y1_binary = (y1_exp > 0).astype(int)
 
     # Splitting the dataset
-    X_train, X_test, y_train, y_test = train_test_split(X1, y1_binary, random_state=42, shuffle=False,
+    X_train, X_test, y_train, y_test = train_test_split(X1, y1_binary, random_state=seed, shuffle=False,
                                                         test_size=1 - train_size)
 
     # Setting up dates
     y_test_dates = y_dates[y_test.index[0] - lag:]
 
     # Training the Randomforest Classifier
-    randomforest_clf = RandomForestClassifier(n_estimators=trees, random_state=42, max_depth=max_depth, max_leaf_nodes=leafes)
+    randomforest_clf = RandomForestClassifier(n_estimators=trees, random_state=seed, max_depth=max_depth, max_leaf_nodes=leaves)
     randomforest_clf.fit(X_train, y_train)
     y_pred_train_rfc = randomforest_clf.predict(X_train)
     y_pred_test_rfc = randomforest_clf.predict(X_test)
 
-    # Changing all 0 to -1 for return calculation
-    y_pred_test_rfc[np.where(y_pred_test_rfc == 0)] = -1
+    # Changing all 0 to -1 for return calculation if long_only is set to false
+    if long_only==False:
+        y_pred_test_rfc[np.where(y_pred_test_rfc == 0)] = -1
 
     # Calculating returns
     y1_ret = y1_exp
@@ -81,24 +86,16 @@ def randomforest_classifier(dataframe, currencies=None, include_sp500=True, lag=
 
     # Calculating accuracies
     accuracies = pd.DataFrame({
-        "Classifiers": ["DTC"],
+        "Classifiers": ["RFC"],
         "in sample": [accuracy_score(y_train, y_pred_train_rfc)],
         "out of sample": [accuracy_score(y_test, y_pred_test_rfc)]
     }).set_index('Classifiers')
 
     print(accuracies)
 
-    # Plotting
-    plt.figure(figsize=(14, 6))
-    test_perform = pd.DataFrame({"Long": y_long, "DTC": y_rfc})
-    plt.plot(y_test_dates, test_perform["Long"], "r", label="Long")
-    plt.plot(y_test_dates, test_perform["DTC"], "g", label="RFC")
-    plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
-    plt.legend()
-    plt.title("Financial Performance Prediction" + (" with " if include_sp500 else " without ") + "S&P500")
-    plt.xlabel('Year')
-    plt.ylabel('CumSum Return')
-    plt.savefig('classifier.svg', dpi=1000)
-    plt.show()
+   
+    test_perform = pd.DataFrame({"Long": y_long, "RFC": y_rfc})
+    
+    cumreturns = pd.concat([y_test_dates, test_perform], axis=1)
 
-    return accuracies, test_perform
+    return accuracies, cumreturns

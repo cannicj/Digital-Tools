@@ -6,13 +6,12 @@
 
 import numpy as np
 import pandas as pd
+import random
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
 
-def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=1,train_size=0.75,max_depth=10):
+def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=1,train_size=0.75,random_seed=False,long_only=False,max_depth=10):
     """
     Trains a Decision Tree Classifier on financial data to predict binary outcomes and evaluates its performance.
 
@@ -40,6 +39,11 @@ def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=
             unavailable_currencies_str = ', '.join(unavailable_currencies)
             print(f"Sorry, {unavailable_currencies_str} is not an available currency pair. Please choose currency pairs from: {available_currencies}")
             return None
+        
+    #Generates a random seed if random_seed is set to True
+    seed=42
+    if random_seed==True:
+        seed = random.randint(0, 4294967295)
     
     # Setting up response and regressor variables
     y1 = dataframe.iloc[lag:, -1]  # Assuming the last column is the response variable
@@ -56,19 +60,20 @@ def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=
     y1_binary = (y1_exp > 0).astype(int)
 
     # Splitting the dataset
-    X_train, X_test, y_train, y_test = train_test_split(X1, y1_binary, random_state=42, shuffle=False, test_size=1-train_size)
+    X_train, X_test, y_train, y_test = train_test_split(X1, y1_binary, random_state=seed, shuffle=False, test_size=1-train_size)
 
     # Setting up dates
     y_test_dates = y_dates[y_test.index[0]-lag:]
     
     # Training the Decision Tree Classifier
-    tree_clf = DecisionTreeClassifier(max_depth=max_depth, random_state=42)
+    tree_clf = DecisionTreeClassifier(max_depth=max_depth, random_state=seed)
     tree_clf.fit(X_train, y_train)
     y_pred_train_dtc = tree_clf.predict(X_train)
     y_pred_test_dtc = tree_clf.predict(X_test)
 
-    # Changing all 0 to -1 for return calculation
-    y_pred_test_dtc[np.where(y_pred_test_dtc == 0)] = -1
+    # Changing all 0 to -1 for return calculation if long_only is set to false
+    if long_only==False:
+        y_pred_test_dtc[np.where(y_pred_test_dtc == 0)] = -1
 
     # Calculating returns
     y1_ret = y1_exp
@@ -85,20 +90,12 @@ def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=
 
     print(accuracies)
 
-    # Plotting
-    plt.figure(figsize=(14, 6))
     test_perform = pd.DataFrame({"Long": y_long, "DTC": y_dtc})
-    plt.plot(y_test_dates, test_perform["Long"], "r", label="Long")
-    plt.plot(y_test_dates, test_perform["DTC"], "g", label="DTC")
-    plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
-    plt.legend()
-    plt.title("Financial Performance Prediction" + (" with " if include_sp500 else " without ") + "S&P500")
-    plt.xlabel('Year')
-    plt.ylabel('CumSum Return')
-    plt.savefig('classifier.svg', dpi=1000)
-    plt.show()
 
-    return accuracies, test_perform
+    cumreturns = pd.concat([y_test_dates, test_perform], axis=1)
+    
+
+    return accuracies, cumreturns
 
 
 # In[ ]:
