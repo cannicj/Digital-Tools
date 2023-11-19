@@ -6,14 +6,14 @@
 
 import numpy as np
 import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=1,train_size=0.75,max_depth=10):
-     """
+    """
     Trains a Decision Tree Classifier on financial data to predict binary outcomes and evaluates its performance.
 
     This function processes financial data, which can include currency pairs and optionally S&P 500 data, and applies a Decision Tree Classifier for binary classification. It calculates the model's accuracy and plots cumulative returns for comparison.
@@ -32,7 +32,7 @@ def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=
     The function prints the accuracy of the model and displays a plot of the cumulative returns. The accuracies DataFrame includes 'in sample' and 'out of sample' accuracy of the Decision Tree Classifier.
     """
     
-    # Selecting columns based on currencies if provided
+    # Selecting columns based on currencies if provided.
     if currencies is not None:
         unavailable_currencies = [currency for currency in currencies if currency not in dataframe.columns]
         if unavailable_currencies:
@@ -66,9 +66,7 @@ def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=
     tree_clf.fit(X_train, y_train)
     y_pred_train_dtc = tree_clf.predict(X_train)
     y_pred_test_dtc = tree_clf.predict(X_test)
-    
 
-    
     # Changing all 0 to -1 for return calculation
     y_pred_test_dtc[np.where(y_pred_test_dtc == 0)] = -1
 
