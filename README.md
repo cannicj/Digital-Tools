@@ -1,7 +1,9 @@
 what_factors_predict_sp500
 ==============================
 
-This projects investigates which factors are useful in predicting S&P 500 returns
+This projects investigates which factors are useful in predicting S&P 500 returns. But what factors and what methods do we use to check the predictive power? After a lot of discussions within our group, we decided to focus on currency data as factors, namely the USD exchange rate to the currencies with the most volume. The goal is to find out whether currency data represents any information that is not yet included in the S&P 500.
+There is no doubt that currency exchange rates reflect information about the economic state of a country, with inflation and interest rate expectations, import and export activity, etc.
+Under the efficiency hypothesis, the same is the case for stock prices and effectively also the S&P500 index. Every new bit of information is immediately reflected in the data, even insider information. However, we use this chance to investigate whether there is some difference in how fast new information is reflected in the price data. To be able to also analyse potential nonlinear relations, we decided to focus on three different supervised machine learning techniques, namely the decisiontree classifier, the randomforest classifier as well as support vector machines. The models take the currency returns as inputs and extract a signal to buy or sell the S&P500. We keep the architecture of the models as flexible as possible, so we can play around with them to study the behavior and gain insights.
 
 Project Organization
 ------------
