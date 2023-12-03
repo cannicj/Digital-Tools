@@ -1,10 +1,14 @@
 # download rawdata functions
 import pandas as pd
 from pandas_datareader import DataReader
+import yfinance as yf
+import pandas as pd
 import datetime
 
 def get_currency_pair_data(currency_pair):
-    # function takes the currency pair as input (USD base) and gives the data as output
+    '''
+    function takes the currency pair as input (USD base) and gives the exchange prices as output
+    '''
     # Dictionary for currency codes
     currency_codes = {
         "USDEUR": "DEXUSEU",
@@ -57,5 +61,29 @@ def get_currency_pair_data(currency_pair):
 #currency_pair = 'CHFUSD'
 #currency_dataframe = get_currency_pair_data(currency_pair)
 
+# SP500 data function from the yahoo finance API
+def download_sp500_prices(ticker='^GSPC', start_date="2000-01-01"):
+    '''
+    Function takes whatever ticker and a start date as input and downloads the respective price data from the yahoo finance API
+    ticker default = SP500
+    start_date default = 2000-01-01
+    '''
+    try:
+        # Download historical data from Yahoo Finance
+        data = yf.download(ticker, start=start_date)
+        # Extract adjusted closing prices
+        sp500_prices = data['Adj Close']
+        # create dataframe
+        df = pd.DataFrame(sp500_prices)
+        df.rename(columns={'Adj Close': 'SP500'}, inplace=True)
+        df = df.rename_axis('DATE')
+        return df
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
 
 
+# Example usage:
+#ticker = '^GSPC'  # Ticker symbol for S&P 500
+#start_date = "2000-01-01"  # Specify the start date
+#sp500_df = download_sp500_prices()

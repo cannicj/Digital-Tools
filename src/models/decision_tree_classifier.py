@@ -26,9 +26,7 @@ def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=
     - max_depth (int): The maximum depth of the decision tree. Helps to control the complexity of the model. Defaults to 10.
 
     Returns:
-    - tuple: A tuple containing a DataFrame of model accuracies and another DataFrame with the cumulative returns for both the 'Long' strategy and the Decision Tree Classifier model. It also generates a plot comparing these returns.
-
-    The function prints the accuracy of the model and displays a plot of the cumulative returns. The accuracies DataFrame includes 'in sample' and 'out of sample' accuracy of the Decision Tree Classifier.
+    - tuple: A tuple containing a DataFrame of model accuracies and another DataFrame with the cumulative returns for both the 'Long' strategy and the Decision Tree Classifier model.
     """
     
     # Selecting columns based on currencies if provided.
@@ -39,11 +37,12 @@ def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=
             unavailable_currencies_str = ', '.join(unavailable_currencies)
             print(f"Sorry, {unavailable_currencies_str} is not an available currency pair. Please choose currency pairs from: {available_currencies}")
             return None
-        
-    #Generates a random seed if random_seed is set to True
-    seed=42
-    if random_seed==True:
+
+    # Generates a random seed if random_seed is set to True
+    if random_seed == True:
         seed = random.randint(0, 4294967295)
+    else:
+        seed = 42
     
     # Setting up response and regressor variables
     y1 = dataframe.iloc[lag:, -1]  # Assuming the last column is the response variable
@@ -88,12 +87,9 @@ def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=
         "out of sample": [accuracy_score(y_test, y_pred_test_dtc)]
     }).set_index('Classifiers')
 
-    print(accuracies)
-
     test_perform = pd.DataFrame({"SP500": y_long, "DTC": y_dtc})
 
     cumreturns = pd.concat([y_test_dates, test_perform], axis=1)
-    
 
     return accuracies, cumreturns
 

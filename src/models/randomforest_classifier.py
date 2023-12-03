@@ -25,14 +25,10 @@ def randomforest_classifier(dataframe, currencies=None, include_sp500=True, lag=
    - leaves (int): The maximum number of terminal nodes / leaves in one tree. Helps to control the complexity of the model. Defaults to 10.
 
    Returns:
-   - tuple: A tuple containing a DataFrame of model accuracies and another DataFrame with the cumulative returns for both the 'Long' strategy and the Decision Tree Classifier model. It also generates a plot comparing these returns.
-
-   The function prints the accuracy of the model and displays a plot of the cumulative returns. The accuracies DataFrame includes 'in sample' and 'out of sample' accuracy of the Decision Tree Classifier.
+   - tuple: A tuple containing a DataFrame of model accuracies and another DataFrame with the cumulative returns for both the 'Long' strategy and the Decision Tree Classifier model.
    """
 
     # Selecting columns based on currencies if provided
-
-
     if currencies is not None:
         unavailable_currencies = [currency for currency in currencies if currency not in dataframe.columns]
         if unavailable_currencies:
@@ -42,10 +38,11 @@ def randomforest_classifier(dataframe, currencies=None, include_sp500=True, lag=
                 f"Sorry, {unavailable_currencies_str} is not an available currency pair. Please choose currency pairs from: {available_currencies}")
             return None
 
-#Generates a random seed if random_seed is set to True
-    seed=42
+    #Generates a random seed if random_seed is set to True
     if random_seed==True:
         seed = random.randint(0, 4294967295)
+    else:
+        seed=42
 
     # Setting up response and regressor variables
     y1 = dataframe.iloc[lag:, -1]  # Assuming the last column is the response variable
@@ -91,9 +88,6 @@ def randomforest_classifier(dataframe, currencies=None, include_sp500=True, lag=
         "out of sample": [accuracy_score(y_test, y_pred_test_rfc)]
     }).set_index('Classifiers')
 
-    print(accuracies)
-
-   
     test_perform = pd.DataFrame({"SP500": y_long, "RFC": y_rfc})
     
     cumreturns = pd.concat([y_test_dates, test_perform], axis=1)

@@ -25,9 +25,7 @@ def support_vector_machine(dataframe, currencies=None, include_sp500=True,lag=1,
     - train_size (float): The proportion of the dataset to use for training the model. The rest will be used for testing. Defaults to 0.75.
 
     Returns:
-    - tuple: A tuple containing a DataFrame of model accuracies and another DataFrame with the cumulative returns for both the 'Long' strategy and the SVC model. It also generates a plot comparing these returns.
-
-    The function prints the accuracy of the model and displays a plot of the cumulative returns. The accuracies DataFrame includes 'in sample' and 'out of sample' accuracy of the SVC model.
+    - tuple: A tuple containing a DataFrame of model accuracies and another DataFrame with the cumulative returns for both the 'Long' strategy and the SVC model.
     """
     # Selecting columns based on currencies if provided
     if currencies is not None:
@@ -37,11 +35,12 @@ def support_vector_machine(dataframe, currencies=None, include_sp500=True,lag=1,
             unavailable_currencies_str = ', '.join(unavailable_currencies)
             print(f"Sorry, {unavailable_currencies_str} is not an available currency pair. Please choose currency pairs from: {available_currencies}")
             return None
-        
-    #Generates a random seed if random_seed is set to True
-    seed=42
-    if random_seed==True:
+
+    # Generates a random seed if random_seed is set to True
+    if random_seed == True:
         seed = random.randint(0, 4294967295)
+    else:
+        seed = 42
 
     # Setting up response and regressor variables
     y1 = dataframe.iloc[lag:, -1]  # Assuming the last column is the response variable
@@ -86,8 +85,6 @@ def support_vector_machine(dataframe, currencies=None, include_sp500=True,lag=1,
         "out of sample": [accuracy_score(y_test, y_pred_test_svc)]
     }).set_index('Classifiers')
 
-    print(accuracies)
-    
     test_perform = pd.DataFrame({"SP500": y_long, "SVC": y_svc})
 
     cumreturns = pd.concat([y_test_dates, test_perform], axis=1)

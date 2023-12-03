@@ -1,4 +1,5 @@
 from download_rawdata_functions import get_currency_pair_data
+from download_rawdata_functions import download_sp500_prices
 import pandas as pd
 import os
 from pandas_datareader import DataReader
@@ -19,10 +20,10 @@ for pair in currency_pairs:
 
 #download all the currency data
 print("Downloading SP500 data.")
-ticker = 'SP500'
 # download data
+ticker = '^GSPC'
 start_date = datetime.datetime(2000, 1, 1)
-spx_data = DataReader(ticker, 'fred', start_date)
+spx_data = download_sp500_prices()
 
 # Define the directory to save the CSV file
 output_directory = '../../data/raw'  # Relative path from the current directory
