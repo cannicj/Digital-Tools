@@ -3,12 +3,11 @@
 
 import numpy as np
 import pandas as pd
-import random
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-def randomforest_classifier(dataframe, currencies=None, include_sp500=True, lag=1, train_size=0.75, random_seed=False, long_only=False, trees=30, max_depth=10, leaves=10):
+def randomforest_classifier(dataframe, currencies=None, include_sp500=True, lag=1, train_size=0.75, seed=42, long_only=False, trees=30, max_depth=10, leaves=10):
     """
    Trains a Randomforest Classifier on financial data to predict binary outcomes and evaluates its performance.
 
@@ -20,6 +19,7 @@ def randomforest_classifier(dataframe, currencies=None, include_sp500=True, lag=
    - include_sp500 (bool): Determines whether to include the S&P 500 data in the analysis. Defaults to True.
    - lag (int): The number of periods by which to lag the response variable for prediction. Defaults to 1.
    - train_size (float): The proportion of the dataset to use for training the model. The rest will be used for testing. Defaults to 0.75.
+   - seed: The seed can be set manually such that the results are reproducible. Default is 42.
    - trees (int): The number of trees in the forest. More trees can lead to a more robust and stable model, but it also comes with increased computational cost. Default is 30.
    - max_depth (int): The maximum depth of one decision tree in the forest. Helps to control the complexity of the model. Defaults to 10.
    - leaves (int): The maximum number of terminal nodes / leaves in one tree. Helps to control the complexity of the model. Defaults to 10.
@@ -37,12 +37,6 @@ def randomforest_classifier(dataframe, currencies=None, include_sp500=True, lag=
             print(
                 f"Sorry, {unavailable_currencies_str} is not an available currency pair. Please choose currency pairs from: {available_currencies}")
             return None
-
-    #Generates a random seed if random_seed is set to True
-    if random_seed==True:
-        seed = random.randint(0, 4294967295)
-    else:
-        seed=42
 
     # Setting up response and regressor variables
     y1 = dataframe.iloc[lag:, -1]  # Assuming the last column is the response variable

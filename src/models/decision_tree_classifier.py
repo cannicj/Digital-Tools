@@ -6,12 +6,11 @@
 
 import numpy as np
 import pandas as pd
-import random
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=1,train_size=0.75,random_seed=False,long_only=False,max_depth=10):
+def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=1,train_size=0.75, seed=42,long_only=False,max_depth=10):
     """
     Trains a Decision Tree Classifier on financial data to predict binary outcomes and evaluates its performance.
 
@@ -23,6 +22,7 @@ def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=
     - include_sp500 (bool): Determines whether to include the S&P 500 data in the analysis. Defaults to True.
     - lag (int): The number of periods by which to lag the response variable for prediction. Defaults to 1.
     - train_size (float): The proportion of the dataset to use for training the model. The rest will be used for testing. Defaults to 0.75.
+    - seed: The seed can be set manually such that the results are reproducible. Default is 42.
     - max_depth (int): The maximum depth of the decision tree. Helps to control the complexity of the model. Defaults to 10.
 
     Returns:
@@ -37,12 +37,6 @@ def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=
             unavailable_currencies_str = ', '.join(unavailable_currencies)
             print(f"Sorry, {unavailable_currencies_str} is not an available currency pair. Please choose currency pairs from: {available_currencies}")
             return None
-
-    # Generates a random seed if random_seed is set to True
-    if random_seed == True:
-        seed = random.randint(0, 4294967295)
-    else:
-        seed = 42
     
     # Setting up response and regressor variables
     y1 = dataframe.iloc[lag:, -1]  # Assuming the last column is the response variable
