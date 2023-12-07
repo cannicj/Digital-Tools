@@ -3,9 +3,9 @@ import sys
 import os
 import random
 import matplotlib.pyplot as plt
-sys.path.append('../src/models')
-sys.path.append('../src/visualization')
-sys.path.append('../src/data')
+sys.path.append('../../src/models')
+sys.path.append('../../src/visualization')
+sys.path.append('../../src/data')
 from support_vector_machine import support_vector_machine
 from randomforest_classifier import randomforest_classifier
 from decision_tree_classifier import decision_tree_classifier
@@ -15,8 +15,8 @@ from combine_tables import combine_tables
 def update_plot_playground(currencies, include_sp500, lag, train_size, random_seed, dtc_active, rfc_active, svm_active, dtc_long_only, rfc_long_only, svm_long_only,
                            dtc_max_depth, rfc_max_depth, rfc_trees, rfc_leaves, fig, plot_output_widget):
     #Import our data
-    log_returns_currencies = pd.read_csv("../data/processed/log_returns_currency_data.csv")
-    log_returns_spx = pd.read_csv("../data/processed/log_returns_spx_data.csv")
+    log_returns_currencies = pd.read_csv("../../data/processed/log_returns_currency_data.csv")
+    log_returns_spx = pd.read_csv("../../data/processed/log_returns_spx_data.csv")
     dataframe = pd.merge(log_returns_currencies, log_returns_spx.iloc[1:], on='DATE', how='inner')
 
     #If we have random seed set to true, generate a random seed, else set seed to 42 (our standard value)
