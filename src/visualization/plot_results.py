@@ -1,5 +1,4 @@
 from IPython.display import display, clear_output
-import seaborn as sns
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 
@@ -15,21 +14,16 @@ def plot_results(dataframe, include_sp500, fig=None, plot_output_widget=None):
     
     # Define a custom color palette based on column titles
     color_palette = {
-        'SP500': 'blue',
-        'DTC': 'green',
-        'RFC': 'red',
-        'SVC': 'orange'
+        'SP500': (0.0, 0.4470588235294118, 0.6980392156862745),  # Blue
+        'DTC': (0.17254901960784313, 0.6274509803921569, 0.17254901960784313),  # Green
+        'RFC': (0.8392156862745098, 0.15294117647058825, 0.1568627450980392),  # Red
+        'SVC': (0.8, 0.4745098039215686, 0.6549019607843137)  # Orange
     }
 
-    # Use the default Seaborn color palette for colorblind viewers
-    default_color_palette = sns.color_palette("colorblind")
-
-    # Set the Seaborn color palette with custom colors for specific columns
-    sns.set_palette([color_palette.get(col, default_color_palette[i]) for i, col in enumerate(dataframe.columns[1:])])
-
+    # Use the custom color palette
     for i in range(1, cols):
         col_title = dataframe.columns[i]
-        ax.plot(dataframe["DATE"], dataframe.iloc[:, i], label=col_title, color=color_palette.get(col_title, default_color_palette[i-1]))
+        ax.plot(dataframe["DATE"], dataframe.iloc[:, i], label=col_title, color=color_palette.get(col_title, 'k'))  # 'k' is black for any undefined column title
 
     ax.xaxis.set_major_locator(mdates.AutoDateLocator())
     ax.legend()
@@ -43,7 +37,5 @@ def plot_results(dataframe, include_sp500, fig=None, plot_output_widget=None):
     if plot_output_widget:
         with plot_output_widget:
             clear_output(wait=True)
-    else :
+    else:
         plt.show()
-
-
