@@ -6,7 +6,7 @@
 - [Project flow](#Project-flow)
 - [Data](#Data)
 - [Models](#Models)
-- [Docker set-up](#Docker-set-up)
+- [Docker set-up](#Docker-set-up (BASH))
 - [Resources](#Resources)
 - [Contributors](#Contributors)
 
@@ -105,9 +105,16 @@ The models we use are all from scikit-learn, where they are all described in det
 - Random Forest classifier: https://scikit-learn.org/stable/modules/ensemble.html#random-forests-and-other-randomized-tree-ensembles. Parameter descriptions and further possibilities can be found here: https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html.
 
 
-## Docker set-up
+## Docker set-up (BASH)
 ------------
-Alex: Add docker step-by-step guide.
+1. Make sure docker is installed on your system. It can be downloaded [here](https://www.docker.com/products/docker-desktop/)
+2. Clone the github repository to your local machine
+3. Build the docker file using the following bash command: docker build -t [name of image] .
+4. Run the docker container: docker run -p 8888:8888 [name of image]
+5. Copy the token given in the terminal when the container is run
+6. Access http://localhost:8888/ and enter the token in the "Password or token" field
+7. Explore the repository or run the notebooks
+
 
 
 ## Resources
