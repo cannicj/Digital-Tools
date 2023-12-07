@@ -6,7 +6,7 @@
 - [Project flow](#Project-flow)
 - [Data](#Data)
 - [Models](#Models)
-- [Docker set-up](#Docker-set-up-(BASH))
+- [Docker set-up](#Docker-set-up-in-BASH)
 - [Resources](#Resources)
 - [Contributors](#Contributors)
 
@@ -105,7 +105,7 @@ The models we use are all from scikit-learn, where they are all described in det
 - Random Forest classifier: https://scikit-learn.org/stable/modules/ensemble.html#random-forests-and-other-randomized-tree-ensembles. Parameter descriptions and further possibilities can be found here: https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html.
 
 
-## Docker set-up (BASH)
+## Docker set-up in BASH
 ------------
 1. Make sure docker is installed on your system. It can be downloaded [here](https://www.docker.com/products/docker-desktop/)
 2. Clone the github repository to your local machine
