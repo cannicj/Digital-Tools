@@ -1,9 +1,13 @@
 import ipywidgets as widgets
+import matplotlib.pyplot as plt
 from IPython.display import display, clear_output, HTML
 import sys
 sys.path.append('src/visualization')
 from update_plot_playground import update_plot_playground
 def playground():
+    #Figure placeholder
+    fig = plt.figure(figsize=(14, 6))
+
     # Create three models with initial parameters
     models = {
         'Decision Tree Classifier': {'active': True,'long_only': False, 'max_depth': 10},
@@ -94,14 +98,15 @@ def playground():
     #Button widget
     submit_button_widget = widgets.Button(description = 'Submit')
 
-
+    #Widget for plot
+    plot_output_widget = widgets.Output()
 
 
     # Display widgets
     with output_widget:
         display(dtc_active_widget, dtc_long_only_widget, dtc_max_depth_widget)
 
-    display(sp500_vbox, lag_vbox, training_size_vbox, random_seed_vbox, currency_vbox, model_dropdown, output_widget, submit_button_widget)
+    display(sp500_vbox, lag_vbox, training_size_vbox, random_seed_vbox, currency_vbox, model_dropdown, output_widget, submit_button_widget,plot_output_widget)
     def update_widgets(change):
         with output_widget:
             # Clear the previous output
@@ -155,7 +160,7 @@ def playground():
         else:
                 print('Error when selecting widget in dropdown list.')   
 
-    def button_clicked(b):
+    def button_clicked(b,fig, output_widget):
         #Put together the data from our widgets and update the plot
         currencies = []
         for currency in currency_widgets:
@@ -175,13 +180,18 @@ def playground():
         rfc_max_depth = int(models['Random Forest Classifier']['max_depth'])
         rfc_trees = int(models['Random Forest Classifier']['trees'])
         rfc_leaves = int(models['Random Forest Classifier']['leaves'])
-        if dtc_active == False & rfc_active == False  & svm_active == False:
+        if not (dtc_active or rfc_active or svm_active):
             print('At least one model must be set to active, setting Decision Tree Classifier to Active')
             dtc_active = True
             dtc_active_widget.value = True
-            models['Decision Tree Classifier']['active']
-        update_plot_playground(currencies, include_sp500, lag, train_size, random_seed, dtc_active, rfc_active, svm_active, dtc_long_only, rfc_long_only, svm_long_only,
-                           dtc_max_depth, rfc_max_depth, rfc_trees, rfc_leaves)
+            models['Decision Tree Classifier']['active'] = True
+
+        with plot_output_widget:
+            # Clear the previous output
+            clear_output(wait=True)
+            update_plot_playground(currencies, include_sp500, lag, train_size, random_seed, dtc_active, rfc_active, svm_active,
+                                   dtc_long_only, rfc_long_only, svm_long_only, dtc_max_depth, rfc_max_depth, rfc_trees,
+                                   rfc_leaves, fig, plot_output_widget)
 
 
         
@@ -198,5 +208,5 @@ def playground():
 
     svm_active_widget.observe(update_model_params, names='value')
     svm_long_only_widget.observe(update_model_params, names='value')
-    submit_button_widget.on_click(button_clicked)
+    submit_button_widget.on_click(lambda b: button_clicked(b, fig, output_widget))
 
