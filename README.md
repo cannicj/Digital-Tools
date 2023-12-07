@@ -6,7 +6,7 @@
 - [Project flow](#Project-flow)
 - [Data](#Data)
 - [Models](#Models)
-- [Docker set-up](#Docker-set-up)
+- [Docker set-up](#Docker-set-up-(BASH))
 - [Resources](#Resources)
 - [Contributors](#Contributors)
 
