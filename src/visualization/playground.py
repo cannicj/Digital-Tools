@@ -12,7 +12,7 @@ def playground():
     fig = plt.figure(figsize=(14, 6))
 
     # Create DatePicker widgets for start and end dates
-    text_above_dates = widgets.HTML(value='<h3>Select the dates for the analysis (training + test set)</h3>')
+    text_above_dates = widgets.HTML(value='<h3>Select the dates for the analysis (training + test set). No dates earlier than 2000-01-01</h3>')
     start_date_widget = widgets.DatePicker(description='Start Date', disabled=False, value = datetime.date(2000, 1, 1))
     end_date_widget = widgets.DatePicker(description='End Date', disabled=False, value = datetime.date(2023,12,8))
     dates_vbox = widgets.VBox([text_above_dates, start_date_widget, end_date_widget])
