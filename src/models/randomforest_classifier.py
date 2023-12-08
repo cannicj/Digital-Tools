@@ -14,7 +14,7 @@ def randomforest_classifier(dataframe, currencies=None, include_sp500=True, lag=
    This function processes financial data, which can include currency pairs and optionally S&P 500 data, and applies a Decision Tree Classifier for binary classification. It calculates the model's accuracy and plots cumulative returns for comparison.
 
    Parameters:
-   - dataframe (pd.DataFrame): The dataset containing the financial data. It should have a 'DATE' column, currency data columns, and optionally an 'SP500' column.
+   - dataframe (pd.DataFrame): The dataset containing the financial data. It should have a 'DATE' column, currency data columns, and an 'SP500' column.
    - currencies (list of str, optional): List of currency columns to include in the analysis. If None, all available currencies in the dataframe will be used.
    - include_sp500 (bool): Determines whether to include the S&P 500 data in the analysis. Defaults to True.
    - lag (int): The number of periods by which to lag the response variable for prediction. Defaults to 1.
@@ -27,30 +27,35 @@ def randomforest_classifier(dataframe, currencies=None, include_sp500=True, lag=
    Returns:
    - tuple: A tuple containing a DataFrame of model accuracies and another DataFrame with the cumulative returns for both the 'Long' strategy and the Decision Tree Classifier model.
    """
+    # Setting up response and regressor variables
+    y1 = dataframe['SP500']  # set up response variable
+    # Calculating binary response
+    y1_binary = (y1 > 0).astype(int)  # For positive Return 1 for negative Return 0
+    y_dates = dataframe['DATE']
 
-    # Selecting columns based on currencies if provided
+    # Selecting columns based on currencies if provided.
     if currencies is not None:
         unavailable_currencies = [currency for currency in currencies if currency not in dataframe.columns]
         if unavailable_currencies:
             available_currencies = ', '.join([col for col in dataframe.columns if col not in ['DATE', 'SP500']])
             unavailable_currencies_str = ', '.join(unavailable_currencies)
-            print(
-                f"Sorry, {unavailable_currencies_str} is not an available currency pair. Please choose currency pairs from: {available_currencies}")
+            print(f"Sorry, {unavailable_currencies_str} is not an available currency pair. Please choose currency pairs from: {available_currencies}")
             return None
-
-    # Setting up response and regressor variables
-    y1 = dataframe.iloc[lag:, -1]  # Assuming the last column is the response variable
-    y_dates = dataframe.iloc[lag:, 0]
-    X1 = dataframe.iloc[:-lag, 1:-1]  # Excluding Date and response variable
+        else:
+            X1 = dataframe[currencies]  # X --> explanatory variables without target
+    else:
+        X1 = dataframe.drop(['DATE', 'SP500'], axis=1)
+    X1 = X1.shift(lag).dropna()  # Shift to prevent look ahead bias
 
     # Including or excluding SP500 based on the flag
     if include_sp500:
-        x1_spx = dataframe.iloc[:-lag, -1]
-        X1 = pd.concat([X1, x1_spx], axis=1)
+        x1_spx = dataframe['SP500'].shift(lag).dropna() # select SP500 with a lag as additional explanatory variable
+        X1 = pd.concat([X1, x1_spx], axis=1) # adding SP500 to explanatory variables
+    y1 = y1.iloc[lag:]  # Remove first lag observations
+    y1_binary = y1_binary.iloc[lag:]  # Remove first lag observations
 
-    # Calculating binary response
+    # get the returns from the log returns
     y1_exp = np.exp(y1) - 1
-    y1_binary = (y1_exp > 0).astype(int)
 
     # Splitting the dataset
     X_train, X_test, y_train, y_test = train_test_split(X1, y1_binary, random_state=seed, shuffle=False,
@@ -84,6 +89,6 @@ def randomforest_classifier(dataframe, currencies=None, include_sp500=True, lag=
 
     test_perform = pd.DataFrame({"SP500": y_long, "RFC": y_rfc})
     
-    cumreturns = pd.concat([y_test_dates, test_perform], axis=1)
+    cumreturns = pd.concat([y_test_dates, test_perform], axis=1).dropna()
 
     return accuracies, cumreturns
