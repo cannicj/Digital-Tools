@@ -6,7 +6,12 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+import joblib
+from joblib import Memory
+# Create a memory object
+memory = Memory(location='../../data/cache', verbose=0)
 
+@memory.cache
 def randomforest_classifier(dataframe, currencies=None, include_sp500=True, lag=1, train_size=0.75, seed=42, long_only=False, trees=30, max_depth=10, leaves=10):
     """
    Trains a Randomforest Classifier on financial data to predict binary outcomes and evaluates its performance.

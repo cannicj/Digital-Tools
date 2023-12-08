@@ -9,7 +9,12 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
+import joblib
+from joblib import Memory
+# Create a memory object
+memory = Memory(location='../../data/cache', verbose=0)
 
+@memory.cache
 def support_vector_machine(dataframe, currencies=None, include_sp500=True,lag=1,train_size=0.75, seed=42, long_only=False):
     """
     Trains a Support Vector Classifier (SVC) on financial data and evaluates its performance.

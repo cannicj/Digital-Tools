@@ -9,7 +9,12 @@ import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+import joblib
+from joblib import Memory
+# Create a memory object
+memory = Memory(location='../../data/cache', verbose=0)
 
+@memory.cache
 def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=1,train_size=0.75, seed=42,long_only=False,max_depth=10):
     """
     Trains a Decision Tree Classifier on financial data to predict binary outcomes and evaluates its performance.
