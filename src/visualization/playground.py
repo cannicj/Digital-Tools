@@ -2,11 +2,23 @@ import ipywidgets as widgets
 import matplotlib.pyplot as plt
 from IPython.display import display, clear_output, HTML
 import sys
+import datetime
+from datetime import date
 sys.path.append('src/visualization')
+sys.path.append('src/data')
 from update_plot_playground import update_plot_playground
 def playground():
     #Figure placeholder
     fig = plt.figure(figsize=(14, 6))
+
+    # Create DatePicker widgets for start and end dates
+    text_above_dates = widgets.HTML(value='<h3>Select the dates for the analysis (training + test set)</h3>')
+    start_date_widget = widgets.DatePicker(description='Start Date', disabled=False, value = datetime.date(2000, 1, 1))
+    end_date_widget = widgets.DatePicker(description='End Date', disabled=False, value = datetime.date(2023,12,8))
+    dates_vbox = widgets.VBox([text_above_dates, start_date_widget, end_date_widget])
+    standard_start_date = datetime.date(2000, 1, 1)
+    standard_end_date = datetime.date(2023,12,8)
+    current_date = datetime.date.today()
 
     # Create three models with initial parameters
     models = {
@@ -16,11 +28,13 @@ def playground():
     }
 
     # Create a dropdown widget to select the model
+    text_above_dropdown = widgets.HTML(value='<h3>Select which models are active and model-specific parameters</h3>')
     model_dropdown = widgets.Dropdown(
         options=list(models.keys()),
         value='Decision Tree Classifier',
         description='Select Model:'
     )
+    dropdown_vbox = widgets.VBox([text_above_dropdown, model_dropdown])
 
     #Create widget and box for SP500
     text_above_sp500 = widgets.HTML(value='<h3>Choose whether to include S&P500 as a predictive variable</h3>')
@@ -33,7 +47,7 @@ def playground():
     lag_vbox = widgets.VBox([text_above_lag, lag_widget])
 
     #Create widget and box for training set size
-    text_above_training_size = widgets.HTML(value='<h3>Choose the relative training data set size (5%\ - 95%) </h3>')
+    text_above_training_size = widgets.HTML(value='<h3>Choose the relative training data set size (5-95%) </h3>')
     training_size_widget = widgets.FloatSlider(description='Training size:', min=0.05, max=0.95, step=0.05, value=0.75)
     training_size_vbox = widgets.VBox([text_above_training_size, training_size_widget])
 
@@ -106,7 +120,7 @@ def playground():
     with output_widget:
         display(dtc_active_widget, dtc_long_only_widget, dtc_max_depth_widget)
 
-    display(sp500_vbox, lag_vbox, training_size_vbox, random_seed_vbox, currency_vbox, model_dropdown, output_widget, submit_button_widget,plot_output_widget)
+    display(dates_vbox,sp500_vbox, lag_vbox, training_size_vbox, random_seed_vbox, currency_vbox, dropdown_vbox, output_widget, submit_button_widget,plot_output_widget)
     def update_widgets(change):
         with output_widget:
             # Clear the previous output
@@ -180,18 +194,37 @@ def playground():
         rfc_max_depth = int(models['Random Forest Classifier']['max_depth'])
         rfc_trees = int(models['Random Forest Classifier']['trees'])
         rfc_leaves = int(models['Random Forest Classifier']['leaves'])
+        start_date = start_date_widget.value
+        end_date = end_date_widget.value
         if not (dtc_active or rfc_active or svm_active):
             print('At least one model must be set to active, setting Decision Tree Classifier to Active')
             dtc_active = True
             dtc_active_widget.value = True
             models['Decision Tree Classifier']['active'] = True
-
+        if start_date >= end_date :
+            print('Start date later than or the same day as end date. Reverting to standard dates.')
+            start_date_widget.value = standard_start_date
+            end_date_widget.value = standard_end_date
+            start_date = standard_start_date
+            end_date = standard_end_date
+        if start_date < datetime.date(2000,1,1) :
+            print('Start date too early, reverting to standard dates.')
+            start_date_widget.value = standard_start_date
+            end_date_widget.value = standard_end_date
+            start_date = standard_start_date
+            end_date = standard_end_date
+        if end_date > current_date :
+            print('End date is in the future, reverting to standard dates.')
+            start_date_widget.value = standard_start_date
+            end_date_widget.value = standard_end_date
+            start_date = standard_start_date
+            end_date = standard_end_date
         with plot_output_widget:
             # Clear the previous output
             clear_output(wait=True)
             update_plot_playground(currencies, include_sp500, lag, train_size, random_seed, dtc_active, rfc_active, svm_active,
                                    dtc_long_only, rfc_long_only, svm_long_only, dtc_max_depth, rfc_max_depth, rfc_trees,
-                                   rfc_leaves, fig, plot_output_widget)
+                                   rfc_leaves, fig, plot_output_widget, start_date, end_date)
 
 
         

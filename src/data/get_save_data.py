@@ -18,8 +18,8 @@ for pair in currency_pairs:
         combined_currency_data[pair] = currency_data[currency_data.columns[0]]
     time.sleep(1)
 
-#download all the currency data
-print("Downloading SP500 data.")
+#download S&P 500 Data
+print("Downloading S&P 500 data.")
 # download data
 ticker = '^GSPC'
 start_date = datetime.datetime(2000, 1, 1)

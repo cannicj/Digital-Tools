@@ -5,7 +5,7 @@ import yfinance as yf
 import pandas as pd
 import datetime
 
-def get_currency_pair_data(currency_pair):
+def get_currency_pair_data(currency_pair, start_date = None, end_date = None):
     '''
     function takes the currency pair as input (USD base) and gives the exchange prices as output
     '''
@@ -47,8 +47,11 @@ def get_currency_pair_data(currency_pair):
         return None
 
     try:
-        start_date = datetime.datetime(2000, 1, 1)
-        currency_data = DataReader(currency_code, 'fred', start_date)
+        if start_date == None or end_date == None :
+            start_date = datetime.datetime(2000, 1, 1)
+            currency_data = DataReader(currency_code, 'fred', start_date)
+        else : 
+            currency_data = DataReader(currency_code, 'fred', start_date, end_date)
         #Problem: USD not always base currency. Check if it is, if it is not, take the inverse
         if currency_code[:2] != 'US':
             currency_data = 1/currency_data
@@ -62,15 +65,19 @@ def get_currency_pair_data(currency_pair):
 #currency_dataframe = get_currency_pair_data(currency_pair)
 
 # SP500 data function from the yahoo finance API
-def download_sp500_prices(ticker='^GSPC', start_date="2000-01-01"):
+def download_sp500_prices(ticker='^GSPC', start_date=None, end_date = None):
     '''
     Function takes whatever ticker and a start date as input and downloads the respective price data from the yahoo finance API
     ticker default = SP500
     start_date default = 2000-01-01
     '''
+    
     try:
         # Download historical data from Yahoo Finance
-        data = yf.download(ticker, start=start_date)
+        if start_date == None or end_date==None:
+            data = yf.download(ticker, start="2000-01-01")
+        else : 
+            data = yf.download(ticker, start=start_date, end = end_date)
         # Extract adjusted closing prices
         sp500_prices = data['Adj Close']
         # create dataframe
