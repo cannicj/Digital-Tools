@@ -9,7 +9,7 @@ sys.path.append('src/data')
 from update_plot_playground import update_plot_playground
 def playground():
     #Figure placeholder
-    fig = plt.figure(figsize=(14, 6))
+    fig = plt.figure(figsize=(10, 6))
 
     # Create DatePicker widgets for start and end dates
     text_above_dates = widgets.HTML(value='<h3>Select the dates for the analysis (training + test set). No dates earlier than 2000-01-01</h3>')
