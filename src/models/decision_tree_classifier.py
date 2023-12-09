@@ -27,7 +27,8 @@ def decision_tree_classifier(dataframe, currencies=None, include_sp500=True,lag=
     - include_sp500 (bool): Determines whether to include the S&P 500 data in the analysis. Defaults to True.
     - lag (int): The number of periods by which to lag the response variable for prediction. Defaults to 1.
     - train_size (float): The proportion of the dataset to use for training the model. The rest will be used for testing. Defaults to 0.75.
-    - seed: The seed can be set manually such that the results are reproducible. Default is 42.
+    - seed (int): The seed can be set manually such that the results are reproducible. Default is 42.
+    - long_only (bool): If true, the model can only go long, otherwise it can go long and short.
     - max_depth (int): The maximum depth of the decision tree. Helps to control the complexity of the model. Defaults to 10.
 
     Returns:
