@@ -31,19 +31,26 @@ def update_plot_playground(currencies, include_sp500, lag, train_size, random_se
         
     # Train the models that are set to active
     active_models = []
+    accuracies = []
+
     if dtc_active == True:
         dt_accuracies, dt_results = decision_tree_classifier(dataframe, currencies, include_sp500, lag, train_size, seed, dtc_long_only, dtc_max_depth)
         active_models.append(dt_results)
+        accuracies.append(dt_accuracies)
     if rfc_active == True:
         rf_accuracies, rf_results = randomforest_classifier(dataframe, currencies, include_sp500, lag, train_size, seed, rfc_long_only, rfc_trees, rfc_max_depth, rfc_leaves)
         active_models.append(rf_results)
+        accuracies.append(rf_accuracies)
     if svm_active == True:
         svm_accuracies, svm_results = support_vector_machine(dataframe, currencies, include_sp500, lag, train_size, seed, svm_long_only)
         active_models.append(svm_results)
+        accuracies.append(svm_accuracies)
     #Combine the results tables of the active trained models and plot the final results
     results = combine_tables(active_models)
     plot_results(results, include_sp500, fig, plot_output_widget)
     current_time = datetime.datetime.now()
     print(f"Finished updating plot at: {current_time}")
+    return accuracies
+
     
 

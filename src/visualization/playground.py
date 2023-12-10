@@ -71,7 +71,7 @@ def playground():
                         usdaud_widget,usdcad_widget,usdnzd_widget,usdsek_widget,
                         usdsgd_widget,usdnok_widget]
 
-    #Create a three Horizontal box to hold currency-pair widgets and a vertical box to hold the horizontal boxes
+    #Create three Horizontal boxes to hold currency-pair widgets and a vertical box to hold the horizontal boxes
     currencies = ['USDEUR', 'USDJPY', 'USDGBP', 'USDCHF', 'USDAUD', 'USDCAD', 
               'USDNZD', 'USDSEK', 'USDSGD', 'USDNOK']
     text_above_currencies = widgets.HTML(value='<h3>Select the currencies to be used as predictive variables</h3>')
@@ -115,6 +115,12 @@ def playground():
     #Widget for plot
     plot_output_widget = widgets.Output()
 
+    #Accuracies widgets and box
+    dtc_accuracy_widget = widgets.Output(value = None)
+    rfc_accuracy_widget = widgets.Output(value = None)
+    svm_accuracy_widget = widgets.Output(value = None)
+    accuracy_vbox = widgets.VBox([dtc_accuracy_widget, rfc_accuracy_widget, svm_accuracy_widget])
+
 
     # Display widgets
     with output_widget:
@@ -153,7 +159,6 @@ def playground():
     # Attach the update function to the dropdown's change event
     model_dropdown.observe(update_widgets, names='value')
 
-    # Run the cell to display the widgets, then you can manually update the parameters using the sliders.
 
     # Add a callback to update the models dictionary when a parameter changes
     def update_model_params(change):
@@ -222,9 +227,15 @@ def playground():
         with plot_output_widget:
             # Clear the previous output
             clear_output(wait=True)
-            update_plot_playground(currencies, include_sp500, lag, train_size, random_seed, dtc_active, rfc_active, svm_active,
+            accuracies = update_plot_playground(currencies, include_sp500, lag, train_size, random_seed, dtc_active, rfc_active, svm_active,
                                    dtc_long_only, rfc_long_only, svm_long_only, dtc_max_depth, rfc_max_depth, rfc_trees,
                                    rfc_leaves, fig, plot_output_widget, start_date, end_date)
+            print(accuracies)
+
+
+
+
+        
 
 
         
