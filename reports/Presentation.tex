@@ -1,4 +1,5 @@
 \documentclass{beamer}
+\usepackage{tikz}
 \usepackage{xcolor}
 \usetheme{Copenhagen}
 %Information to be included in the title page:
@@ -6,6 +7,7 @@
 \author{J. Cavegn, A. Falk, J. Raschke}
 \institute{UZH, Department of Banking and Finance}
 \date{2023}
+
 
 
 \logo{\includegraphics[height=1cm]{images/UZH_logo.png}}
@@ -134,8 +136,23 @@
 
 \begin{frame}
 \frametitle{Finding the best predictor (SVM)}
+\begin{itemize}
+    \item The figure below shows the distribution of the cumulative returns of backtests of all currency combinations:
+\end{itemize}
+\begin{figure}[h!]
+\begin{center}
+  \includegraphics[width=0.55\columnwidth]{images/hist_comparison.png}
+  \caption{Cumulative returns of all different currency combinations used as explanatory variables.}
+\end{center}
+  \label{fig: cumulative returns}
+\end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Finding the best predictor (SVM)}
  \begin{itemize}
-     \item todo: 2-3 more slides with the rest of the figures.
      \item slides for simulation stuff
      \item appendix slide about playground (also add to report)
      \item align color scheme
@@ -145,7 +162,7 @@
  \end{itemize}
 \end{frame}
 
-\
+
     
 
 
