@@ -120,6 +120,10 @@ The models we use are all from scikit-learn, where they are all described in det
 ## Resources
 ------------
 Add some sources that we can use in the bibliography.
+https://dl.acm.org/doi/10.1145/130385.130401 (first paper on support vector machines, describing what they are)
+https://www.taylorfrancis.com/books/mono/10.1201/9781315139470/classification-regression-trees-leo-breiman (similar, can refer to for more info on dtc)
+https://ieeexplore.ieee.org/document/598994 (same for random forests)
+
 
 
 ## Contributors
