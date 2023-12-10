@@ -1,0 +1,84 @@
+%%%%%%%%%
+%preamble
+%%%%%%%%%
+
+\documentclass[12pt, oneside]{article}
+\usepackage{packages}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{dcolumn}
+
+\renewcommand\thesection{\Alph{section}}
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+
+\makeglossaries
+    %needed to actually display the glossary
+    \newglossaryentry{DTC}
+    {
+    name = DTC,
+    description = {decision tree classifier}
+    }
+    \newglossaryentry{RFC}
+    {
+    name = RFC,
+    description = {random forest classifier}
+    }
+    \newglossaryentry{SVM}
+    {
+    name = SVM,
+    description = {support vector machines}
+    }
+    \newglossaryentry{FRED}
+    {
+    name = FRED,
+    description = {Federal Reserve Economic Data}
+    }
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%beginning of main body
+%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\input{0.1_titlepage}
+
+\newpage
+\tableofcontents
+
+\newpage
+\vspace{-.7cm}
+\listoffigures
+\addcontentsline{toc}{section}{List of Figures}
+    %adds the list of figures to the table of contents (toc)
+\vspace{-.7cm}
+%\listoftables
+%\addcontentsline{toc}{section}{List of Tables}
+    %adds the list of tables to the toc
+%\vspace{-.7cm}
+\printglossary[title = {List of Abbreviations}, style = super, nonumberlist, nopostdot]
+\addcontentsline{toc}{section}{List of Abbreviations}
+    %adds the list of abbreviations to the toc
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%actual start of the document
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\pagenumbering{arabic} %sets page enumeration to arabic numbers
+
+\input{1_File}
+
+%%%%%%%%%%%%%
+%bibliography
+%%%%%%%%%%%%%
+\newpage
+\nocite{*}
+\setlength\bibitemsep{2.5\itemsep}
+    %adds space between two sources
+\newpage\clearpage
+\printbibliography[heading=bibintoc,title={Bibliography}]
+
+
+
+%%%%%%%%%%%%%%%%%
+%end of main body
+%%%%%%%%%%%%%%%%%
+\end{document}
