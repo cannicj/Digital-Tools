@@ -68,7 +68,7 @@ Under the efficienct market hypothesis, this information contained in exchange r
 
 ## Project flow
 --------
-- Set up skeletton project structure using cookiecutter.
+- Set up skeleton project structure using cookiecutter.
 
 - Set up the Docker to ensure reproducability.
 
@@ -119,10 +119,13 @@ The models we use are all from scikit-learn, where they are all described in det
 
 ## Resources
 ------------
-Add some sources that we can use in the bibliography.
-https://dl.acm.org/doi/10.1145/130385.130401 (first paper on support vector machines, describing what they are)
-https://www.taylorfrancis.com/books/mono/10.1201/9781315139470/classification-regression-trees-leo-breiman (similar, can refer to for more info on dtc)
-https://ieeexplore.ieee.org/document/598994 (same for random forests)
+- [Boser, B. E., Guyon, I. M., & Vapnik, V. N. (1992)](https://doi.org/10.1145/130385.130401): A training algorithm for optimal
+margin classifiers, Proceedings of the Fifth Annual Workshop on Computa-
+tional Learning Theory, 144–152.
+- [Breiman, L. (1984)](https://doi.org/10.1201/9781315139470): Classification and regression trees, Routledge.
+- [Ho, T. K. (1995)](https://doi.org/10.1109/ICDAR.1995.598994): Random decision forests. Proceedings of 3rd International Con-
+ference on Document Analysis and Recognition, 1, 278–282 vol.1
+
 
 
 
