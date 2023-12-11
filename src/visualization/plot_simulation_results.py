@@ -31,7 +31,7 @@ def plot_simulation_results(svm_results, rf_results, dt_results):
     plt.plot(svm_results["DATE"], svm_results["SP500"], label='SP500', color=(0.0, 0.4470588235294118, 0.6980392156862745), linewidth=2)
     plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
     plt.legend()
-    plt.title("SVM Financial Performance Prediction" + (" with " if include_sp500 else " without ") + "S&P500")
+    plt.title("SVM Financial Performance Prediction")
     plt.xlabel('Date')
     plt.ylabel('Cumulative Return')
     # Add grid
@@ -52,7 +52,7 @@ def plot_simulation_results(svm_results, rf_results, dt_results):
     plt.fill_between(rf_results["DATE"], rf_ranges['25% quantile'], rf_ranges['75% quantile'], color='green', alpha=0.2)
     plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
     plt.legend()
-    plt.title("Random Forest Financial Performance Prediction" + (" with " if include_sp500 else " without ") + "S&P500")
+    plt.title("Random Forest Financial Performance Prediction")
     plt.xlabel('Date')
     plt.ylabel('Cumulative Return')
     # Add grid
@@ -73,7 +73,7 @@ def plot_simulation_results(svm_results, rf_results, dt_results):
     plt.plot(dt_results["DATE"], dt_ranges['median'], label='Median', color='red', linewidth=2)
     plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
     plt.legend()
-    plt.title("Decision Tree Financial Performance Prediction" + (" with " if include_sp500 else " without ") + "S&P500")
+    plt.title("Decision Tree Financial Performance Prediction")
     plt.xlabel('Date')
     plt.ylabel('Cumulative Return')
     # Add grid
