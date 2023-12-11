@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+import seaborn as sns
 
 def plot_simulation_results(svm_results, rf_results, dt_results):
  
