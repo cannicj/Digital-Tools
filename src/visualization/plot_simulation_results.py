@@ -45,7 +45,7 @@ def plot_simulation_results(svm_results, rf_results, dt_results):
     sns.set_palette("colorblind")
     for i in range(2, cols):
         plt.plot(rf_results["DATE"], rf_results.iloc[:,i],color='grey', alpha=0.4)
-    plt.plot(rf_results["DATE"], svm_results["SP500"], label='SP500', color=(0.0, 0.4470588235294118, 0.6980392156862745), linewidth=2)
+    plt.plot(rf_results["DATE"], rf_results["SP500"], label='SP500', color=(0.0, 0.4470588235294118, 0.6980392156862745), linewidth=2)
     plt.plot(rf_results["DATE"], rf_ranges['25% quantile'], label='25% Quantile', color='green', linewidth=2)
     plt.plot(rf_results["DATE"], rf_ranges['median'], label='Median', color='red', linewidth=2)
     plt.plot(rf_results["DATE"], rf_ranges['75% quantile'], label='75% Quantile', color='green', linewidth=2)
