@@ -27,8 +27,8 @@ def plot_simulation_results(svm_results, rf_results, dt_results):
     cols = svm_results.shape[1]
     # Set the Seaborn color palette
     sns.set_palette("colorblind")
-    plt.plot(svm_results["DATE"], svm_results.iloc[:,2],label='SVM',color='blue',linewidth=2)
-    plt.plot(svm_results["DATE"], svm_results["SP500"], label='SP500', color='green', linewidth=2)
+    plt.plot(svm_results["DATE"], svm_results.iloc[:,2],label='SVM',color='green',linewidth=2)
+    plt.plot(svm_results["DATE"], svm_results["SP500"], label='SP500', color=(0.0, 0.4470588235294118, 0.6980392156862745), linewidth=2)
     plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
     plt.legend()
     plt.title("SVM Financial Performance Prediction" + (" with " if include_sp500 else " without ") + "S&P500")
@@ -45,10 +45,10 @@ def plot_simulation_results(svm_results, rf_results, dt_results):
     sns.set_palette("colorblind")
     for i in range(2, cols):
         plt.plot(rf_results["DATE"], rf_results.iloc[:,i],color='grey', alpha=0.4)
-    plt.plot(rf_results["DATE"], svm_results["SP500"], label='SP500', color='green', linewidth=2)
-    plt.plot(rf_results["DATE"], rf_ranges['25% quantile'], label='25% Quantile', color='blue', linewidth=2)
+    plt.plot(rf_results["DATE"], svm_results["SP500"], label='SP500', color=(0.0, 0.4470588235294118, 0.6980392156862745), linewidth=2)
+    plt.plot(rf_results["DATE"], rf_ranges['25% quantile'], label='25% Quantile', color='green', linewidth=2)
     plt.plot(rf_results["DATE"], rf_ranges['median'], label='Median', color='red', linewidth=2)
-    plt.plot(rf_results["DATE"], rf_ranges['75% quantile'], label='75% Quantile', color='blue', linewidth=2)
+    plt.plot(rf_results["DATE"], rf_ranges['75% quantile'], label='75% Quantile', color='green', linewidth=2)
     plt.fill_between(rf_results["DATE"], rf_ranges['25% quantile'], rf_ranges['75% quantile'], color='green', alpha=0.2)
     plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
     plt.legend()
@@ -66,9 +66,9 @@ def plot_simulation_results(svm_results, rf_results, dt_results):
     sns.set_palette("colorblind")
     for i in range(2, cols):
         plt.plot(dt_results["DATE"], dt_results.iloc[:,i],color='grey', alpha=0.4)
-    plt.plot(dt_results["DATE"], dt_results["SP500"], label='SP500', color='green', linewidth=2)
-    plt.plot(dt_results["DATE"], dt_ranges['25% quantile'], label='25% Quantile', color='blue', linewidth=2)
-    plt.plot(dt_results["DATE"], dt_ranges['75% quantile'], label='75% Quantile', color='blue', linewidth=2)
+    plt.plot(dt_results["DATE"], dt_results["SP500"], label='SP500', color=(0.0, 0.4470588235294118, 0.6980392156862745), linewidth=2)
+    plt.plot(dt_results["DATE"], dt_ranges['25% quantile'], label='25% Quantile', color='green', linewidth=2)
+    plt.plot(dt_results["DATE"], dt_ranges['75% quantile'], label='75% Quantile', color='green', linewidth=2)
     plt.fill_between(dt_results["DATE"], dt_ranges['25% quantile'], dt_ranges['75% quantile'], color='green', alpha=0.2)
     plt.plot(dt_results["DATE"], dt_ranges['median'], label='Median', color='red', linewidth=2)
     plt.gca().xaxis.set_major_locator(mdates.AutoDateLocator())
