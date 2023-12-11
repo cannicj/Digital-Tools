@@ -20,50 +20,43 @@ Under the efficienct market hypothesis, this information contained in exchange r
 ## Project Organization --> needs to be updated in the end!
 ------------
 
-    ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
-    │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jja-initial-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
-    ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+├── .idea
+│   ├── inspectionProfiles						
+│   ├── .gitignore									
+│   ├── misc.xml									
+│   ├── modules.xml								
+│   ├── vcs.xml										
+│   └── what_factors_predict_sp500.iml			
+├── data
+│   ├── cache/joblib								<- All files from the caching are saved here.
+│   ├── processed									<- Storing of processed files
+│   └── raw											<- Storing of raw downloaded files
+├── notebooks
+│   ├── playground									<- playground to play with the models
+│   └── analysis									<- notebook with the full analysis
+├── reports
+│   ├── figures										<- figures used in the report and beamer presentation
+│   ├── 0.0_main.tex								<- main Latex file
+│   ├── 0.1_titlepage.tex							<- storing of the titlepage
+│   ├── 1_File.tex									<- storing of the main content of the report
+│   ├── 2_references.bib							<- references for the bibliography
+│   ├── Presentation.tex							<- beamer presentation
+│   └── packages.sty								<- big file with all packages
+├── src
+│   ├── data										<- all functions (.py) to downoad the data
+│   ├── features									<- all functions (.py) to build the features
+│   ├── models										<- all functions (.py) to run the models
+│   └── visualizations							<- all functions (.py) to visualize the results and for the playground
+├── .gitignore										<- gitignore file with files to ignore
+├── Dockerfile										
+├── LICENSE											
+├── Makefile											
+├── README.md										<- The top-level README for developers using this project.
+├── requirements.txt								<- The requirements file for reproducing the analysis environment
+├── setup.py											<- makes project pip installable (pip install -e .) so src can be imported
+├── test_environment.py							
+└── tox.ini														
+
 
 
 ## Project flow
@@ -137,3 +130,9 @@ Jannic Cavegn (@cannicj), Alexander Falk (@AlexanderFalkETH), Julius Raschke (@j
 --------
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+
+## Appendix
+------------
+<img src="./reports/figures/financial_performance_animated.gif" width="500">
+
+As we could not put our .gif file into our pdf report, we are including it here.

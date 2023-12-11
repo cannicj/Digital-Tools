@@ -12,7 +12,8 @@ def support_vector_machine(dataframe, currencies=None, include_sp500=True,lag=1,
     - include_sp500 (bool): Determines whether to include the S&P 500 data in the analysis. Defaults to True.
     - lag (int): The number of periods by which to lag the response variable for prediction. Defaults to 1.
     - train_size (float): The proportion of the dataset to use for training the model. The rest will be used for testing. Defaults to 0.75.
-    - seed: The seed can be set manually such that the results are reproducible. Default is 42.
+    - seed (int): The seed can be set manually such that the results are reproducible. Default is 42.
+    - long_only (bool): If true, the model can only go long, otherwise it can go long and short.
 
     Returns:
     - tuple: A tuple containing a DataFrame of model accuracies and another DataFrame with the cumulative returns for both the 'Long' strategy and the SVC model.
