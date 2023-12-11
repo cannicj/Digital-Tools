@@ -2,6 +2,11 @@ import pandas as pd
 import numpy as np
 import datetime
 from datetime import date
+import sys
+sys.path.append('../src/models')
+from support_vector_machine import support_vector_machine
+from randomforest_classifier import randomforest_classifier
+from decision_tree_classifier import decision_tree_classifier
 
 def run_simulations(dataframe, currencies, include_sp500, lag, train_size, long_only, num_simulations):
     # Initialize lists to store results
