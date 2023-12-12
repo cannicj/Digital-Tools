@@ -18,7 +18,7 @@ This projects aims to investigate what factors are useful in predicting S&P 500 
 It is widely known that currency exchange rates reflect information about the economic state of a country, with inflation and interest rate expectations, import and export activity etc. all having a real time impact on exchange rates.
 Under the efficienct market hypothesis, this information contained in exchange rate data, should also be contained and priced into the S&P 500 index. Every new piece of information, even insider information, should immediately be incorporated into S&P 500 prices. However, we use this chance to investigate whether there exists some innefficiencies, and whether the above statement holds valid in the real world. Thus, we test whether fluctuations in exchange rates are able to provide a real time signal to future changes in the S&P 500. To be able to also analyse potential nonlinear relations, we have decided to focus on three different supervised machine learning techniques, namely the decisiontree classifier, the randomforest classifier and support vector machines. The models take currency returns as inputs and extract a signal to buy or sell the S&P500. We keep the architecture of the models as flexible as possible, so one can play around with them to study their behavior to gain insights.
 
-## Project Organization --> needs to be updated in the end!
+## Project Organization
 ------------
 
     ├── LICENSE
