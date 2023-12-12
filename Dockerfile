@@ -12,7 +12,7 @@ RUN apt-get update && \
     apt-get install -y libgl1-mesa-glx libxrender1
 
 # Install LaTeX and Beamer
-RUN apt-get install -y texlive texlive-xetex texlive-fonts-recommended texlive-fonts-extra
+RUN apt-get install -y texlive texlive-xetex texlive-fonts-recommended texlive-fonts-extra texlive-bibtex-extra biber
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
