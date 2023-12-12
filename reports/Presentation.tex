@@ -1,7 +1,9 @@
 \documentclass{beamer}
 \usepackage{tikz}
 \usepackage{xcolor}
-\usetheme{Copenhagen}
+\usepackage{dcolumn}
+\usepackage{animate}
+\usetheme{Antibes}
 %Information to be included in the title page:
 \title{\bfseries What factors predict S\&P500?}
 \author{J. Cavegn, A. Falk, J. Raschke}
@@ -9,8 +11,8 @@
 \date{2023}
 
 
-
-\logo{\includegraphics[height=1cm]{images/UZH_logo.png}}
+\logo{\includegraphics[height=0.6cm]{images/UZH_logo.png}}
+\setbeamertemplate{navigation symbols}{}
 \begin{document}
 
 \frame{\titlepage}
@@ -20,6 +22,17 @@
 \tableofcontents
 \end{frame}
 
+\begin{frame}
+\frametitle{List of abbreviations}
+\begin{itemize}
+    \item DTC   decision tree classifier
+    \item RFC   random forest classifier
+    \item SVM   support vector machine
+\end{itemize}
+    
+\end{frame}
+
+\section{Introduction}
 \begin{frame}
 \frametitle{Introduction}
 \begin{itemize}
@@ -35,6 +48,8 @@
 \end{itemize}
 \end{frame}
 
+
+\section{Models}
 \begin{frame}
 \frametitle{Support Vector Machine}
 \begin{itemize}
@@ -69,10 +84,11 @@
 \end{itemize}
 \end{frame}
 
+\section{Initial Results}
 \begin{frame}
 \frametitle{Initial Results}
 \begin{itemize}
-\item The idea of all three models is to predict an up or down-move of the S\&P 500, in which case they can take a long or short position to profit from the anticipated move (in the code, there is a setting for allowing short positions)
+\item The idea of all three models is to predict an up or down-move of the S\&P 500, in which case they can take a long or short position to profit from the anticipated move
 \item Initially, the three models were trained with all available currencies as predictor variables, a lag of one day, 0.8 training/test set split, allowing both long and short positions. All other parameters were set to their default values as specified in the report.
 \item Prediction accuracies are displayed in the table below:
 \end{itemize}
@@ -95,21 +111,50 @@
 \begin{frame}
 \frametitle{Initial Results}
 \begin{itemize}
-\item As can be gathered from the table in the previous slide, out of sample performance is not better than flipping a coin. \item Additionally, as seen in figure \ref{fig: cumulative returns} (GIF) below, RFC and DTC backtesting performances are heavily seed-dependent
+\item As can be gathered from the table in the previous slide, out of sample performance is not better than flipping a coin. \item Additionally, as seen in the figure below (GIF) below, RFC and DTC backtesting performances are heavily seed-dependent
 \end{itemize}
 \begin{figure}[h!]
-\begin{center}
-  \includegraphics[width=0.7\columnwidth]{images/first_visualization.png}
-  \caption[Model return comparison]{Cumulative returns of all three models compared to the long only S\&P500.}
-  \end{center}
-  \label{fig: cumulative returns}
+    \centering
+    \animategraphics[loop,autoplay,width=0.6\linewidth]{4}{images/financial_performance_animation-}{0}{19}
+    \caption{Cumulative returns for different seeds.}
+    \label{fig: moving_returns}
+\end{figure}
+
+\end{frame}
+
+\section{Simulation}
+\begin{frame}
+\frametitle{Simulation}
+We simulate 250 times for the decision tree and random forest model. Unfortunately due to our simplistic architecture in our SVM, it only produces one possible path. From our simulated results the key findings are:
+\newline
+\begin{itemize}
+    \item There is lots of variability in performance
+    \item Random Forest significantly outperforms the decision tree
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Decision Tree Simulation Results}
+\begin{figure}[h!]
+  \includegraphics[width=0.9\columnwidth]{images/dt_sim.png}
+  \caption{Decision Tree Simulation}
+  \label{fig: Decision Tree Simulation}
 \end{figure}
 \end{frame}
 
 \begin{frame}
-\frametitle{Simulation}
+\frametitle{Random Forest Simulation Results}
+\begin{figure}[h!]
+\begin{center}
+  \includegraphics[width=0.9\columnwidth]{images/rf_sim.png}
+  \caption{Decision Tree Simulation}
+\end{center}
+  \label{fig: Random Forest Simulation}
+\end{figure}
+
 \end{frame}
 
+\section{Finding the best predictor (SVM)}
 \begin{frame}
 \frametitle{Finding the best predictor (SVM)}
 \begin{itemize}
@@ -123,7 +168,7 @@
 \begin{frame}
 \frametitle{Finding the best predictor (SVM)}
 \begin{itemize}
-    \item The following plot shows the 1023 predictor variable combinations with the aforementioned best one marked in blue:
+    \item The following plot shows the 1023 predictor variable combinations with the aforementioned best one marked in red:
 \end{itemize}
 \begin{figure}[h!]
 \begin{center}
@@ -150,18 +195,15 @@
 \end{frame}
 
 
-\begin{frame}
-\frametitle{Finding the best predictor (SVM)}
- \begin{itemize}
-     \item slides for simulation stuff
-     \item appendix slide about playground (also add to report)
-     \item align color scheme
-     \item double check the decimal package thing...
-     \item add mention of memoization to report somewhere
-     \item make table of contents, bibliography
- \end{itemize}
-\end{frame}
+\appendix
 
+\begin{frame}{Appendix A - Playground tool}
+  \begin{itemize}
+  \item In the git repository, an interactive playground tool is included
+  \item The tool is run in a jupyter notebook and allows the user to modify all parameters and the underlying dataset of the analysis in real time
+  \item To set up the tool, follow the docker tutorial in the git repository
+  \end{itemize}
+\end{frame}
 
     
 
