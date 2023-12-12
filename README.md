@@ -9,6 +9,7 @@
 - [Docker set-up in BASH](#Docker-set-up-in-BASH)
 - [Resources](#Resources)
 - [Contributors](#Contributors)
+- [Appendix](#Appendix)
 
 
 ## Introduction
@@ -20,44 +21,40 @@ Under the efficienct market hypothesis, this information contained in exchange r
 ## Project Organization --> needs to be updated in the end!
 ------------
 
-├── .idea
-│   ├── inspectionProfiles						
-│   ├── .gitignore									
-│   ├── misc.xml									
-│   ├── modules.xml								
-│   ├── vcs.xml										
-│   └── what_factors_predict_sp500.iml			
-├── data
-│   ├── cache/joblib								<- All files from the caching are saved here.
-│   ├── processed									<- Storing of processed files
-│   └── raw											<- Storing of raw downloaded files
-├── notebooks
-│   ├── playground									<- playground to play with the models
-│   └── analysis									<- notebook with the full analysis
-├── reports
-│   ├── figures										<- figures used in the report and beamer presentation
-│   ├── 0.0_main.tex								<- main Latex file
-│   ├── 0.1_titlepage.tex							<- storing of the titlepage
-│   ├── 1_File.tex									<- storing of the main content of the report
-│   ├── 2_references.bib							<- references for the bibliography
-│   ├── Presentation.tex							<- beamer presentation
-│   └── packages.sty								<- big file with all packages
-├── src
-│   ├── data										<- all functions (.py) to downoad the data
-│   ├── features									<- all functions (.py) to build the features
-│   ├── models										<- all functions (.py) to run the models
-│   └── visualizations							<- all functions (.py) to visualize the results and for the playground
-├── .gitignore										<- gitignore file with files to ignore
-├── Dockerfile										
-├── LICENSE											
-├── Makefile											
-├── README.md										<- The top-level README for developers using this project.
-├── requirements.txt								<- The requirements file for reproducing the analysis environment
-├── setup.py											<- makes project pip installable (pip install -e .) so src can be imported
-├── test_environment.py							
-└── tox.ini														
-
-
+    ├── LICENSE
+    ├── README.md                   <- The top-level README for developers using this project	
+    ├── .idea
+    │   ├── inspectionProfiles						
+    │   ├── .gitignore									
+    │   ├── misc.xml									
+    │   ├── modules.xml								
+    │   ├── vcs.xml										
+    │   └── what_factors_predict_sp500.iml			
+    ├── data
+    │   ├── cache/joblib								<- All files from the caching are saved here.
+    │   ├── processed									<- Storing of processed files
+    │   └── raw											<- Storing of raw downloaded files
+    ├── notebooks
+    │   ├── playground									<- playground to play with the models
+    │   └── analysis									<- notebook with the full analysis
+    ├── reports
+    │   ├── figures										<- figures used in the report and beamer presentation
+    │   ├── 0.0_main.tex								<- main Latex file
+    │   ├── 0.1_titlepage.tex							<- storing of the titlepage
+    │   ├── 1_File.tex									<- storing of the main content of the report
+    │   ├── 2_references.bib							<- references for the bibliography
+    │   ├── Presentation.tex							<- beamer presentation
+    │   └── packages.sty								<- big file with all packages
+    ├── src
+    │   ├── data										<- all functions (.py) to downoad the data
+    │   ├── features									<- all functions (.py) to build the features
+    │   ├── models										<- all functions (.py) to run the models
+    │   └── visualizations							<- all functions (.py) to visualize the results and for the playground
+    ├── .gitignore										<- gitignore file with files to ignore
+    ├── Dockerfile																				
+    ├── Makefile											
+    ├── requirements.txt								<- The requirements file for reproducing the analysis environment
+    ├── setup.py											<- makes project pip installable (pip install -e .) so src can be imported												
 
 ## Project flow
 --------
@@ -133,6 +130,5 @@ Jannic Cavegn (@cannicj), Alexander Falk (@AlexanderFalkETH), Julius Raschke (@j
 
 ## Appendix
 ------------
-<img src="./reports/figures/financial_performance_animated.gif" width="500">
 
-As we could not put our .gif file into our pdf report, we are including it here.
+Note that the report is only compiling correcly when using a ‘real’ pdf reader like acrobat, Microsoft edge cannot handle animations in pdf files (it just shows a blurry image).
