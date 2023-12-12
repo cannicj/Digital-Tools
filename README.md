@@ -103,7 +103,7 @@ The models we use are all from scikit-learn, where they are all described in det
 5. Copy the token given in the terminal when the container is run
 6. Access http://localhost:8888/ and enter the token in the "Password or token" field
 7. Explore the repository or run the notebooks.
-8. To compile report run pdflatex (with -shell-escape) command on 0.0_main.tex or Presentation.tex
+8. To compile report run pdflatex with -shell-escape command on 0.0_main.tex or Presentation.tex. For 0.0_main biber should also be run to set up the bibliography.
 
 
 
