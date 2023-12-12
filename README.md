@@ -9,6 +9,7 @@
 - [Docker set-up in BASH](#Docker-set-up-in-BASH)
 - [Resources](#Resources)
 - [Contributors](#Contributors)
+- [Appendix](#Appendix)
 
 
 ## Introduction
@@ -17,47 +18,42 @@ This projects aims to investigate what factors are useful in predicting S&P 500 
 It is widely known that currency exchange rates reflect information about the economic state of a country, with inflation and interest rate expectations, import and export activity etc. all having a real time impact on exchange rates.
 Under the efficienct market hypothesis, this information contained in exchange rate data, should also be contained and priced into the S&P 500 index. Every new piece of information, even insider information, should immediately be incorporated into S&P 500 prices. However, we use this chance to investigate whether there exists some innefficiencies, and whether the above statement holds valid in the real world. Thus, we test whether fluctuations in exchange rates are able to provide a real time signal to future changes in the S&P 500. To be able to also analyse potential nonlinear relations, we have decided to focus on three different supervised machine learning techniques, namely the decisiontree classifier, the randomforest classifier and support vector machines. The models take currency returns as inputs and extract a signal to buy or sell the S&P500. We keep the architecture of the models as flexible as possible, so one can play around with them to study their behavior to gain insights.
 
-## Project Organization --> needs to be updated in the end!
+## Project Organization
 ------------
 
-├── .idea
-│   ├── inspectionProfiles						
-│   ├── .gitignore									
-│   ├── misc.xml									
-│   ├── modules.xml								
-│   ├── vcs.xml										
-│   └── what_factors_predict_sp500.iml			
-├── data
-│   ├── cache/joblib								<- All files from the caching are saved here.
-│   ├── processed									<- Storing of processed files
-│   └── raw											<- Storing of raw downloaded files
-├── notebooks
-│   ├── playground									<- playground to play with the models
-│   └── analysis									<- notebook with the full analysis
-├── reports
-│   ├── figures										<- figures used in the report and beamer presentation
-│   ├── 0.0_main.tex								<- main Latex file
-│   ├── 0.1_titlepage.tex							<- storing of the titlepage
-│   ├── 1_File.tex									<- storing of the main content of the report
-│   ├── 2_references.bib							<- references for the bibliography
-│   ├── Presentation.tex							<- beamer presentation
-│   └── packages.sty								<- big file with all packages
-├── src
-│   ├── data										<- all functions (.py) to downoad the data
-│   ├── features									<- all functions (.py) to build the features
-│   ├── models										<- all functions (.py) to run the models
-│   └── visualizations							<- all functions (.py) to visualize the results and for the playground
-├── .gitignore										<- gitignore file with files to ignore
-├── Dockerfile										
-├── LICENSE											
-├── Makefile											
-├── README.md										<- The top-level README for developers using this project.
-├── requirements.txt								<- The requirements file for reproducing the analysis environment
-├── setup.py											<- makes project pip installable (pip install -e .) so src can be imported
-├── test_environment.py							
-└── tox.ini														
-
-
+    ├── LICENSE
+    ├── README.md			<- The top-level README for developers using this project	
+    ├── .idea
+    │   ├── inspectionProfiles						
+    │   ├── .gitignore									
+    │   ├── misc.xml									
+    │   ├── modules.xml								
+    │   ├── vcs.xml										
+    │   └── what_factors_predict_sp500.iml			
+    ├── data
+    │   ├── cache/joblib			<- All files from the caching are saved here.
+    │   ├── processed			<- Storing of processed files
+    │   └── raw						<- Storing of raw downloaded files
+    ├── notebooks
+    │   ├── playground			<- playground to play with the models
+    │   └── analysis			<- notebook with the full analysis
+    ├── reports
+    │   ├── figures				<- figures used in the report and beamer presentation
+    │   ├── 0.0_main.tex			<- main Latex file
+    │   ├── 0.1_titlepage.tex		<- storing of the titlepage
+    │   ├── 1_File.tex			<- storing of the main content of the report
+    │   ├── 2_references.bib		<- references for the bibliography
+    │   ├── Presentation.tex		<- beamer presentation
+    │   └── packages.sty			<- big file with all packages
+    ├── src
+    │   ├── data				<- all functions (.py) to downoad the data
+    │   ├── features			<- all functions (.py) to build the features
+    │   ├── models				<- all functions (.py) to run the models
+    │   └── visualizations				<- all functions (.py) to visualize the results and for the playground
+    ├── .gitignore				<- gitignore file with files to ignore
+    ├── Dockerfile	
+    ├── requirements.txt			<- The requirements file for reproducing the analysis environment
+												
 
 ## Project flow
 --------
@@ -133,6 +129,5 @@ Jannic Cavegn (@cannicj), Alexander Falk (@AlexanderFalkETH), Julius Raschke (@j
 
 ## Appendix
 ------------
-<img src="./reports/figures/financial_performance_animated.gif" width="500">
 
-As we could not put our .gif file into our pdf report, we are including it here.
+Note that the report is only compiling correcly when using a ‘real’ pdf reader like acrobat, Microsoft edge cannot handle animations in pdf files (it just shows a blurry image).
