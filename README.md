@@ -22,7 +22,7 @@ Under the efficienct market hypothesis, this information contained in exchange r
 ------------
 
     ├── LICENSE
-    ├── README.md					<- The top-level README for developers using this project	
+    ├── README.md			<- The top-level README for developers using this project	
     ├── .idea
     │   ├── inspectionProfiles						
     │   ├── .gitignore									
@@ -32,26 +32,26 @@ Under the efficienct market hypothesis, this information contained in exchange r
     │   └── what_factors_predict_sp500.iml			
     ├── data
     │   ├── cache/joblib			<- All files from the caching are saved here.
-    │   ├── processed				<- Storing of processed files
-    │   └── raw											<- Storing of raw downloaded files
+    │   ├── processed			<- Storing of processed files
+    │   └── raw						<- Storing of raw downloaded files
     ├── notebooks
     │   ├── playground			<- playground to play with the models
-    │   └── analysis				<- notebook with the full analysis
+    │   └── analysis			<- notebook with the full analysis
     ├── reports
     │   ├── figures				<- figures used in the report and beamer presentation
     │   ├── 0.0_main.tex			<- main Latex file
-    │   ├── 0.1_titlepage.tex	<- storing of the titlepage
+    │   ├── 0.1_titlepage.tex		<- storing of the titlepage
     │   ├── 1_File.tex			<- storing of the main content of the report
     │   ├── 2_references.bib		<- references for the bibliography
     │   ├── Presentation.tex		<- beamer presentation
     │   └── packages.sty			<- big file with all packages
     ├── src
-    │   ├── data					<- all functions (.py) to downoad the data
-    │   ├── features				<- all functions (.py) to build the features
-    │   ├── models					<- all functions (.py) to run the models
-    │   └── visualizations		<- all functions (.py) to visualize the results and for the playground
-    ├── .gitignore					<- gitignore file with files to ignore
-    ├── Dockerfile																															
+    │   ├── data				<- all functions (.py) to downoad the data
+    │   ├── features			<- all functions (.py) to build the features
+    │   ├── models				<- all functions (.py) to run the models
+    │   └── visualizations				<- all functions (.py) to visualize the results and for the playground
+    ├── .gitignore				<- gitignore file with files to ignore
+    ├── Dockerfile	
     ├── requirements.txt			<- The requirements file for reproducing the analysis environment
 												
 
