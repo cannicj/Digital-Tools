@@ -22,14 +22,7 @@ Under the efficienct market hypothesis, this information contained in exchange r
 ------------
 
     ├── LICENSE
-    ├── README.md			<- The top-level README for developers using this project	
-    ├── .idea
-    │   ├── inspectionProfiles						
-    │   ├── .gitignore									
-    │   ├── misc.xml									
-    │   ├── modules.xml								
-    │   ├── vcs.xml										
-    │   └── what_factors_predict_sp500.iml			
+    ├── README.md			<- The top-level README for developers using this project			
     ├── data
     │   ├── cache/joblib			<- All files from the caching are saved here.
     │   ├── processed			<- Storing of processed files
@@ -47,7 +40,6 @@ Under the efficienct market hypothesis, this information contained in exchange r
     │   └── packages.sty			<- big file with all packages
     ├── src
     │   ├── data				<- all functions (.py) to downoad the data
-    │   ├── features			<- all functions (.py) to build the features
     │   ├── models				<- all functions (.py) to run the models
     │   └── visualizations				<- all functions (.py) to visualize the results and for the playground
     ├── .gitignore				<- gitignore file with files to ignore
